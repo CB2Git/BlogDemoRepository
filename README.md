@@ -5,3 +5,5 @@
 + TestSurfaceView：介绍SurfaceView的基本用法，参考链接:[http://www.27house.cn/archives/953](http://www.27house.cn/archives/953)
 
 + TestSurfaceViewCamera：介绍系统Camera的用法，参考链接:[http://www.27house.cn/archives/959](http://www.27house.cn/archives/959)
+
++ TestCameraSuper:介绍给Camera预览窗口添加水印，参考链接:[http://www.27house.cn/archives/977](http://www.27house.cn/archives/977)
