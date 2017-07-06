@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/sample_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="native String："/>
+
+    <Button
+        android:onClick="onCalcInNative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="native计算"/>
+
+    <Button
+        android:onClick="onNativeCallJavaMethod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="native调用Java层方法"/>
+
+    <Button
+        android:onClick="onNativeModifyField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="native修改对象属性"/>
+
+</LinearLayout>
