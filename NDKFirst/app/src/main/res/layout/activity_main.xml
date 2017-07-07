@@ -12,21 +12,51 @@
         android:text="native String："/>
 
     <Button
-        android:onClick="onCalcInNative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onCalcInNative"
         android:text="native计算"/>
 
     <Button
-        android:onClick="onNativeCallJavaMethod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onNativeCallJavaMethod"
         android:text="native调用Java层方法"/>
 
     <Button
-        android:onClick="onNativeModifyField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onNativeModifyField"
         android:text="native修改对象属性"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onNativeReturnArray"
+        android:text="native返回int[][]"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onNativeStudent1"
+            android:text="返回Student对象(无参)"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onNativeStudent2"
+            android:text="返回Student对象(有参数)"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onNativeOutputStudent"
+        android:text="native输出Java层传递的对象"/>
 </LinearLayout>

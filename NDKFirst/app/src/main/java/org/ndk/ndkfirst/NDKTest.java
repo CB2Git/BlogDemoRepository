@@ -10,8 +10,6 @@ public class NDKTest {
         System.loadLibrary("ndk-test-lib");
     }
 
-    private int mmm = 100;
-
     private String mString = "Ndk test string";
 
     /**
@@ -34,13 +32,41 @@ public class NDKTest {
      */
     public native void modifyFiled();
 
+
+    /**
+     * 输出native的修改结果
+     */
     public void outputString() {
         Log.i(TAG, "mString: " + mString);
     }
 
+    /**
+     * native中会调用此方法
+     */
     @Override
     public String toString() {
         Log.i(TAG, "toString: ");
         return mString;
     }
+
+    /**
+     * native层返回一个int[][]数组
+     */
+    public native static int[][] getIntArray(int row, int column);
+
+    /**
+     * native返回一个{@link Student}对象,调用无参构造函数
+     */
+    public native Student getStudentFromNative();
+
+    /**
+     * native返回一个{@link Student}对象,调用构造函数
+     */
+    public native Student getStudentFromNative2();
+
+    /**
+     * 在native层打印出Student对象
+     * @param stu
+     */
+    public native void outputStudentInNative(Student stu);
 }

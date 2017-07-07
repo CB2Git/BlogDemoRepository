@@ -2,10 +2,13 @@ package org.ndk.ndkfirst;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     private NDKTest mNDKTest = new NDKTest();
 
@@ -41,4 +44,41 @@ public class MainActivity extends AppCompatActivity {
         mNDKTest.modifyFiled();
         mNDKTest.outputString();
     }
+
+
+    /**
+     * 在native层f返回一个int[][]
+     */
+    public void onNativeReturnArray(View v) {
+        int[][] intArray = NDKTest.getIntArray(5, 10);
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < intArray.length; i++) {
+            for (int j = 0; j < intArray[i].length; j++) {
+                sb.append(intArray[i][j]);
+                sb.append(" ");
+            }
+            sb.append("\n");
+        }
+        Log.i(TAG, "onNativeReturnArray:\n" + sb.toString());
+    }
+
+    /**
+     * native返回无参的Student
+     */
+    public void onNativeStudent1(View v) {
+        Log.i(TAG, "onNativeStudent1: " + mNDKTest.getStudentFromNative());
+    }
+
+    /**
+     * native返回有参数的Student
+     */
+    public void onNativeStudent2(View v) {
+        Log.i(TAG, "onNativeStudent1: " + mNDKTest.getStudentFromNative2());
+    }
+
+    public void onNativeOutputStudent(View v) {
+        Student stu = new Student(12, "2333");
+        mNDKTest.outputStudentInNative(stu);
+    }
+
 }
