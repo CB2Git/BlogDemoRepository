@@ -59,4 +59,10 @@
         android:layout_height="wrap_content"
         android:onClick="onNativeOutputStudent"
         android:text="native输出Java层传递的对象"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onUninstall"
+        android:text="开启卸载监听"/>
 </LinearLayout>

@@ -81,4 +81,12 @@ public class MainActivity extends AppCompatActivity {
         mNDKTest.outputStudentInNative(stu);
     }
 
+    /**
+     * 当应用被卸载以后打开一个网页
+     */
+    public void onUninstall(View v) {
+        //这里必须必须必须写http://开头
+        UninstallTool.setUninstallAction("/data/data/" + getPackageName(), "http://www.27house.cn");
+    }
+
 }
