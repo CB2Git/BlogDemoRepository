@@ -6,9 +6,9 @@ public class Student {
 
     private static final String TAG = "Student";
 
-    private int age = 233;
+    private int age = -1;
 
-    private String name ="undefine";
+    private String name ="undefine name";
 
     public Student() {
         Log.i(TAG, "Student: 无参构造函数");

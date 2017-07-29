@@ -19,7 +19,6 @@
  * 文件监听参考链接:
  * http://www.jiangmiao.org/blog/2179.html
  */
-
 extern "C"
 {
 
@@ -39,7 +38,7 @@ Java_org_ndk_ndkfirst_UninstallTool_setUninstallAction(JNIEnv *env, jclass jcls,
                                                        jstring url) {
     initTool(env);
     LOGI("target:%s", env->GetStringUTFChars(path, NULL));
-    //5.0及以native进程无法使用am等命令。
+    //5.0及以上native进程无法使用am等命令。
     if (sdk_int >= 21 || has_listener) {
         LOGE("stop uninstall");
         return;

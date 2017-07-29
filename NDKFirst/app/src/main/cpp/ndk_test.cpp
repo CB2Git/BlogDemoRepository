@@ -11,7 +11,6 @@
 #define LOGF(...) __android_log_print(ANDROID_LOG_FATAL,TAG ,__VA_ARGS__) // 定义LOGF类型
 
 
-
 extern "C"
 {
 JNIEXPORT jstring JNICALL
@@ -53,7 +52,7 @@ Java_org_ndk_ndkfirst_NDKTest_getIntArray(JNIEnv *env, jclass cls, jint row, jin
         env->SetIntArrayRegion(jintArray1, 0, sizeof(temp) / sizeof(temp[0]), temp);
         //将int[]放到最初简历的数组中
         env->SetObjectArrayElement(inArray, i, jintArray1);
-        //清楚临时的引用
+        //清除临时的引用
         env->DeleteLocalRef(jintArray1);
     }
     return inArray;
@@ -72,18 +71,24 @@ Java_org_ndk_ndkfirst_NDKTest_getStudentFromNative(JNIEnv *env, jobject obj) {
 
 JNIEXPORT jobject JNICALL
 Java_org_ndk_ndkfirst_NDKTest_getStudentFromNative2(JNIEnv *env, jobject obj) {
+    //获取Student的jclass对象
     jclass stuCls = env->FindClass("org/ndk/ndkfirst/Student");
+    //调用有参数的构造函数，参数为int,String
     jmethodID stuid = env->GetMethodID(stuCls, "<init>", "(ILjava/lang/String;)V");
+    //参数为10，native student
     return env->NewObject(stuCls, stuid, 10, env->NewStringUTF("native student"));
 }
 
 JNIEXPORT void JNICALL
 Java_org_ndk_ndkfirst_NDKTest_outputStudentInNative(JNIEnv *env, jobject obj, jobject stu) {
-    jclass  stuCls = env->GetObjectClass(stu);
-    jmethodID  toStringid = env->GetMethodID(stuCls,"toString","()Ljava/lang/String;");
-    jstring str = (jstring)env->CallObjectMethod(stu,toStringid);
+    //获取类对象
+    jclass stuCls = env->GetObjectClass(stu);
+    //调用toString方法
+    jmethodID toStringid = env->GetMethodID(stuCls, "toString", "()Ljava/lang/String;");
+    //调用方法
+    jstring str = (jstring) env->CallObjectMethod(stu, toStringid);
     //这里需要使用GetStringUTFChars而不是GetStringChars,因为jstring为宽字符
-    LOGI("native output : %s",env->GetStringUTFChars(str,NULL));
+    LOGI("native output : %s", env->GetStringUTFChars(str, NULL));
 }
 }
 
