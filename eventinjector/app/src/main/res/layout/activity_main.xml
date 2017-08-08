@@ -10,24 +10,13 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onScan"
-        android:text="扫描所有设备信息"/>
+        android:onClick="onDemo2"
+        android:text="使用input命令"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onSendKey"
-        android:text="发送音量减"/>
+        android:onClick="onDemo1"
+        android:text="读写/dev/input/eventX"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onSendTouch"
-        android:text="发送Touch事件"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onSendSwipe"
-        android:text="发送单指滑动事件"/>
 </LinearLayout>

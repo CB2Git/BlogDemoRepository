@@ -34,7 +34,7 @@ DeviceMask devices[100] = {0};
 
 int device_Count = 0;
 
-unsigned char execCmd(char *cmd) {
+unsigned char execCmd(const char *cmd) {
     int status = system(cmd);
     if (-1 == status) {
         status = 0;
@@ -290,4 +290,20 @@ Java_org_ndk_eventinjector_utils_KeyTouchInjector_injectSwipeEvent(JNIEnv *env, 
     }
     close(fd);
     (*env)->ReleaseIntArrayElements(env, points_, points, 0);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_org_ndk_eventinjector_utils_KeyTouchInjector_execCommand(JNIEnv *env, jclass type,
+                                                              jstring cmd_, jboolean root) {
+    const char *cmd = (*env)->GetStringUTFChars(env, cmd_, 0);
+    jboolean result = JNI_FALSE;
+    if (root) {
+        char suCmd[200] = {0};
+        sprintf(suCmd, "su -c '%s'", cmd);
+        execCmd(suCmd);
+    } else {
+        result = execCmd(cmd);
+    }
+    (*env)->ReleaseStringUTFChars(env, cmd_, cmd);
+    return result;
 }

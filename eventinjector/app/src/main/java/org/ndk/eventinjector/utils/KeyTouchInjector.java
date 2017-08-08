@@ -5,6 +5,10 @@ import android.os.Build;
 import android.util.Log;
 import android.view.KeyEvent;
 
+/**
+ * 读写/dev/input/eventX写入事件<p>
+ * 需要对不同的设备进行底层适配
+ */
 public class KeyTouchInjector {
 
     private static final String TAG = "KeyTouchInjector";
@@ -17,6 +21,11 @@ public class KeyTouchInjector {
      * 检查是否有root权限
      */
     public native static boolean checkSU();
+
+    /**
+     * 在jni层执行shell命令
+     */
+    public native static boolean execCommand(String cmd, boolean root);
 
     /**
      * 初始化/dev/input/下面的设备权限为666
