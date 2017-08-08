@@ -19,4 +19,15 @@
         android:onClick="onSendKey"
         android:text="发送音量减"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onSendTouch"
+        android:text="发送Touch事件"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onSendSwipe"
+        android:text="发送单指滑动事件"/>
 </LinearLayout>

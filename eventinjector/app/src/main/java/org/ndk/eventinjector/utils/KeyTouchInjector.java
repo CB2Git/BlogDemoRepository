@@ -2,7 +2,6 @@ package org.ndk.eventinjector.utils;
 
 
 import android.os.Build;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 
@@ -32,14 +31,22 @@ public class KeyTouchInjector {
     private native static boolean recoveryInjector(int version);
 
     /**
-     * 找到能被注入事件的驱动
+     * 注入touch事件
+     *
+     * @param x 整个屏幕的X坐标
+     * @param y 整个屏幕的Y坐标
      */
-    public native static String findKeyTouchDevice();
+    public native static boolean injectTouchEvent(int x, int y);
+
+    /**
+     * 注入滑动消息，注意，需要在新线程中运行！！！
+     */
+    public native static boolean injectSwipeEvent(int[] points);
 
     /**
      * native注入的位置，因为Android上层与下层不对应，所以加一个中转层
      */
-    private native static boolean nativeInjectKeyEvent(String devPath, int keyCode);
+    private native static boolean nativeInjectKeyEvent(int keyCode);
 
     public static boolean init() {
         return initInjector(Build.VERSION.SDK_INT);
@@ -57,6 +64,8 @@ public class KeyTouchInjector {
      */
     private static int parseKeyCode(int keyCode) {
         int parseKeyCode = -1;
+        // KeyEvent k = new KeyEvent(1, KeyEvent.KEYCODE_VOLUME_DOWN);
+        //Log.i(TAG, "parseKeyCode: k = " + k.getScanCode());
         switch (keyCode) {
             case KeyEvent.KEYCODE_0:
                 parseKeyCode = 11;
@@ -101,15 +110,14 @@ public class KeyTouchInjector {
     /**
      * 注入一个按键消息
      */
-    public static boolean injectKeyEvent(String devPath, int keyCode) {
-        Log.i(TAG, "injectKeyEvent: devPath = " + devPath);
-        if (TextUtils.isEmpty(devPath)) {
-            return false;
-        }
+    public static boolean injectKeyEvent(int keyCode) {
+
         int parseKeyCode = parseKeyCode(keyCode);
         if (parseKeyCode == -1) {
+            Log.i(TAG, "injectKeyEvent: keyCode is undefined");
             return false;
         }
-        return nativeInjectKeyEvent(devPath, parseKeyCode);
+        return nativeInjectKeyEvent(parseKeyCode);
     }
+
 }
