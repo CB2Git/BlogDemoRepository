@@ -7,7 +7,7 @@
 #include <linux/input.h>
 #include <stdio.h>
 
-#define TAG "KeyTouchInjector::JNI"
+#define TAG "KeyTouchInjector"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG  , TAG, __VA_ARGS__)
 #define LOGV(...) __android_log_print(ANDROID_LOG_VERBOSE, TAG, __VA_ARGS__)
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__)
@@ -210,24 +210,45 @@ Java_org_ndk_eventinjector_utils_KeyTouchInjector_injectTouchEvent(JNIEnv *env, 
         return JNI_FALSE;
     }
 
-    //down
+    //参考链接:http://wo153.blog.51cto.com/6255254/1542669
+    send_event(fd, EV_ABS, ABS_MT_TRACKING_ID, 0x123);
+    send_event(fd, EV_ABS, ABS_MT_POSITION_X, x);
+    send_event(fd, EV_ABS, ABS_MT_POSITION_Y, y);
     send_event(fd, EV_KEY, BTN_TOUCH, 1);
-    send_event(fd, EV_ABS, ABS_MT_PRESSURE, 1);
-    send_event(fd, EV_ABS, ABS_MT_POSITION_X, x);
-    send_event(fd, EV_ABS, ABS_MT_POSITION_Y, y);
-    send_event(fd, EV_SYN, SYN_MT_REPORT, SYN_REPORT);
-    send_event(fd, EV_SYN, SYN_REPORT, SYN_REPORT);
+    send_event(fd, EV_SYN, SYN_REPORT, 0);
 
-    //up
+
+    send_event(fd, EV_ABS, ABS_MT_TRACKING_ID, -1);
     send_event(fd, EV_KEY, BTN_TOUCH, 0);
-    send_event(fd, EV_ABS, ABS_MT_PRESSURE, 0);
-    send_event(fd, EV_ABS, ABS_MT_POSITION_X, x);
-    send_event(fd, EV_ABS, ABS_MT_POSITION_Y, y);
-    send_event(fd, EV_SYN, SYN_MT_REPORT, SYN_REPORT);
-    send_event(fd, EV_SYN, SYN_REPORT, SYN_REPORT);
+    send_event(fd, EV_SYN, SYN_REPORT, 1);
+
     close(fd);
     return JNI_TRUE;
 }
+
+void moveTo(int fd, int x1, int y1, int x2, int y2) {
+    LOGI("move %d,%d to %d,%d", x1, y1, x2, y2);
+    int tmpX = x1;
+    int tmpY = y1;
+    int delay = 8;
+    do {
+        if (x1 < x2) {
+            tmpX = (tmpX + delay) >= x2 ? x2 : (tmpX + delay);
+        } else {
+            tmpX = (tmpX - delay) <= x2 ? x2 : (tmpX - delay);
+        }
+        if (y1 < y2) {
+            tmpY = (tmpY + delay) >= y2 ? y2 : (tmpY + delay);
+        } else {
+            tmpY = (tmpY - delay) <= y2 ? y2 : (tmpY - delay);
+        }
+        send_event(fd, EV_ABS, ABS_MT_POSITION_X, tmpX);
+        send_event(fd, EV_ABS, ABS_MT_POSITION_Y, tmpY);
+        send_event(fd, EV_SYN, SYN_REPORT, SYN_REPORT);
+    } while (tmpX != x2 || tmpY != y2);
+}
+
+int lastEventId = 0x123;
 
 JNIEXPORT jboolean JNICALL
 Java_org_ndk_eventinjector_utils_KeyTouchInjector_injectSwipeEvent(JNIEnv *env, jclass type,
@@ -259,36 +280,28 @@ Java_org_ndk_eventinjector_utils_KeyTouchInjector_injectSwipeEvent(JNIEnv *env, 
         return JNI_FALSE;
     }
     jint *points = (*env)->GetIntArrayElements(env, points_, NULL);
-
     for (int i = 0; i < pointSize; i += 2) {
         if (i == 0) {
             //down
+            send_event(fd, EV_ABS, ABS_MT_TRACKING_ID, lastEventId);
+            send_event(fd, EV_ABS, ABS_MT_POSITION_X, points[i]);
+            send_event(fd, EV_ABS, ABS_MT_POSITION_Y, points[i + 1]);
             send_event(fd, EV_KEY, BTN_TOUCH, 1);
-            send_event(fd, EV_ABS, ABS_MT_PRESSURE, 1);
-            send_event(fd, EV_ABS, ABS_MT_POSITION_X, points[i]);
-            send_event(fd, EV_ABS, ABS_MT_POSITION_Y, points[i + 1]);
-            send_event(fd, EV_SYN, SYN_MT_REPORT, SYN_REPORT);
-            send_event(fd, EV_SYN, SYN_REPORT, SYN_REPORT);
-        }
-        if (i == pointSize - 2) {
-            //up
-            send_event(fd, EV_KEY, BTN_TOUCH, 0);
-            send_event(fd, EV_ABS, ABS_MT_PRESSURE, 0);
-            send_event(fd, EV_ABS, ABS_MT_POSITION_X, points[i]);
-            send_event(fd, EV_ABS, ABS_MT_POSITION_Y, points[i + 1]);
-            send_event(fd, EV_SYN, SYN_MT_REPORT, SYN_REPORT);
             send_event(fd, EV_SYN, SYN_REPORT, SYN_REPORT);
         } else {
             //move
-            send_event(fd, EV_ABS, ABS_MT_POSITION_X, points[i]);
-            send_event(fd, EV_ABS, ABS_MT_POSITION_Y, points[i + 1]);
-            send_event(fd, EV_SYN, SYN_MT_REPORT, SYN_REPORT);
-            send_event(fd, EV_SYN, SYN_REPORT, SYN_REPORT);
+            moveTo(fd, points[i - 2], points[i - 1], points[i], points[i + 1]);
         }
-        //系统响应时间大约为33ms
-        usleep(5500);
     }
+    //up
+    send_event(fd, EV_ABS, ABS_MT_TRACKING_ID, -1);
+    send_event(fd, EV_KEY, BTN_TOUCH, 0);
+    send_event(fd, EV_SYN, SYN_MT_REPORT, SYN_REPORT);
+    send_event(fd, EV_SYN, SYN_REPORT, SYN_REPORT);
+    send_event(fd, EV_ABS, ABS_MT_SLOT, 0);
+    usleep(1000 * 3);
     close(fd);
+    lastEventId++;
     (*env)->ReleaseIntArrayElements(env, points_, points, 0);
 }
 

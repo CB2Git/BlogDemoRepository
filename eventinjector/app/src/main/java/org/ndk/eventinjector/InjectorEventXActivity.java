@@ -1,11 +1,13 @@
 package org.ndk.eventinjector;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import org.ndk.eventinjector.utils.KeyTouchInjector;
 
@@ -20,12 +22,13 @@ public class InjectorEventXActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_injectoreventxactivity);
-        onScan(null);
+        //onScan(null);
     }
 
     public void onScan(View v) {
         if (KeyTouchInjector.init()) {
             Log.i(TAG, "KeyTouchInjector init ok");
+            Toast.makeText(this, "初始化ok", Toast.LENGTH_SHORT).show();
         } else {
             Log.i(TAG, "KeyTouchInjector init error");
         }
@@ -40,26 +43,18 @@ public class InjectorEventXActivity extends AppCompatActivity {
     }
 
     public void onSendSwipe(View v) {
+        moveTaskToBack(true);
         new Thread(new Runnable() {
             @Override
             public void run() {
+                SystemClock.sleep(3000);
                 KeyTouchInjector.injectSwipeEvent(new int[]{
-                        98, 681,
-                        102, 681,
-                        104, 681,
-                        112, 681,
-                        117, 681,
-                        128, 681,
-                        131, 681,
-                        142, 681,
-                        98, 681,
-                        102, 681,
-                        104, 681,
-                        112, 681,
-                        117, 681,
-                        128, 681,
-                        131, 681,
-                        142, 681});
+                        000, 700,
+                        300, 700});
+                SystemClock.sleep(3000);
+                KeyTouchInjector.injectSwipeEvent(new int[]{
+                        000, 700,
+                        300, 700});
             }
         }).start();
     }

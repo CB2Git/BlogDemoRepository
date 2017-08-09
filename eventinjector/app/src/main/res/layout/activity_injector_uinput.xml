@@ -10,14 +10,14 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onScan"
-        android:text="扫描所有设备信息"/>
+        android:onClick="onCreateVir"
+        android:text="创建虚拟设备"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onSendKey"
-        android:text="发送音量减"/>
+        android:text="发送Key事件"/>
 
     <Button
         android:layout_width="match_parent"
@@ -28,6 +28,6 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onSendSwipe"
-        android:text="发送单指滑动事件"/>
+        android:onClick="onDestroyVir"
+        android:text="销毁虚拟设备"/>
 </LinearLayout>
