@@ -11,4 +11,6 @@
 + TestCameraRecorder:介绍Camera录像功能的实现，参考链接:[http://www.27house.cn/archives/985](http://www.27house.cn/archives/985)
 + NDKFirst:介绍在Android Studio环境中配置NDK开发环境以及native层与Java层的交互，参考链接:[http://www.27house.cn/archives/tag/ndk](http://www.27house.cn/archives/tag/ndk)
 
-##### 最后更新:2017/7/7 星期五 14:24:43 
++ XTuone:介绍ViewPager的轮播图特效，包括无限滚动、点击左右滑动等，参考链接:[https://github.com/CB2Git/BlogDemoRepository/tree/master/XTuone](https://github.com/CB2Git/BlogDemoRepository/tree/master/XTuone "https://github.com/CB2Git/BlogDemoRepository/tree/master/XTuone")
+
+##### 最后更新:2017/8/28 星期一 22:28:24 
