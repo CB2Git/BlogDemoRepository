@@ -1,0 +1,22 @@
+<set
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <objectAnimator
+        android:duration="1000"
+        android:propertyName="strokeColor"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:valueFrom="#ff00ff00"
+        android:valueTo="#ffff00ff"
+        android:valueType="colorType"/>
+
+    <objectAnimator
+        android:duration="1000"
+        android:propertyName="trimPathStart"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:valueFrom="0"
+        android:valueTo="1"
+        android:valueType="floatType"/>
+</set>
+
