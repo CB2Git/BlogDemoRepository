@@ -13,4 +13,6 @@
 
 + XTuone:介绍ViewPager的轮播图特效，包括无限滚动、点击左右滑动等，参考链接:[https://github.com/CB2Git/BlogDemoRepository/tree/master/XTuone](https://github.com/CB2Git/BlogDemoRepository/tree/master/XTuone "https://github.com/CB2Git/BlogDemoRepository/tree/master/XTuone")
 
-##### 最后更新:2017/8/28 星期一 22:28:24 
++VectorDemo:介绍Android中SVG图片的使用。[http://www.27house.cn/archives/1267](http://www.27house.cn/archives/1267 "参考链接")
+
+##### 2017/9/13 星期三 23:17:46 
