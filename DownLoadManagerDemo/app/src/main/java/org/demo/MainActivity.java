@@ -139,8 +139,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "selfChange=" + selfChange + ", uri=" + uri);
             long id = -1;
             try {
+                //获取下载id
                 id = Long.parseLong(uri.getLastPathSegment());
                 DownloadInfo downinfo = new DownloadInfo(MainActivity.this);
+                //查询对应id的下载信息，不过只能查询到自己下载的数据
                 downinfo.query((int) id);
                 Log.i(TAG, "onChange: downinfo" + downinfo.toString());
             } catch (NumberFormatException e) {
@@ -167,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onChange: downinfo```" + downinfo.toString());
     }
 
+    //仅仅在部分机型上有效，大部分机型会出现异常
     public void pause(View view) {
         ContentResolver resolver = getContentResolver();
         ContentValues values = new ContentValues();
@@ -184,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //仅仅在部分机型上有效，大部分机型会出现异常
     public void resume(View view) {
         ContentResolver resolver = getContentResolver();
         ContentValues values = new ContentValues();
