@@ -15,4 +15,6 @@
 
 + VectorDemo:介绍Android中SVG图片的使用。[http://www.27house.cn/archives/1267](http://www.27house.cn/archives/1267 "参考链接")
 
-##### 2017/9/13 星期三 23:17:46 
++ DownLoadManagerDemo:介绍系统DownloadManager的用法。[http://www.27house.cn/archives/1309](http://www.27house.cn/archives/1309 "参考链接")
+
+##### 2017/10/16 星期一 17:11:15 
