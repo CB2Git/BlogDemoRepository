@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SlidingActivity" >
+
+    <org.demo.viewdraghelper.widget.SlidingMenu
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:background="#ff00ff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#ffff00"
+            android:tag="content"
+            android:text="content" />
+    </org.demo.viewdraghelper.widget.SlidingMenu>
+
+</RelativeLayout>
