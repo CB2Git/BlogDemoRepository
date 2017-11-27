@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         mComponentName1111 = new ComponentName(this, packageName + ".MainActivity1111");
         mComponentName1212 = new ComponentName(this, packageName + ".MainActivity1212");
         mComponentNameDefault = new ComponentName(this, packageName + ".MainActivity");
+
+        Toast.makeText(this, getTitle(), Toast.LENGTH_SHORT).show();
     }
 
     /**
