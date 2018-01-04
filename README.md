@@ -18,5 +18,6 @@
 + DownLoadManagerDemo:介绍系统DownloadManager的用法。[http://www.27house.cn/archives/1309](http://www.27house.cn/archives/1309 "参考链接")
 
 + AutoAppIconSamples:介绍动态更换应用图标的方法。[http://www.27house.cn/archives/1342](http://www.27house.cn/archives/1342)
++ RecycleViewDragSamples:介绍RecycleView的拖动排序等实现.参考链接:[http://www.27house.cn/archives/1357](http://www.27house.cn/archives/1357)
 
-##### 2017/12/20 星期三 16:09:51 
+##### 2018/1/4 星期四 14:59:38 
